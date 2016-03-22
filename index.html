@@ -1,57 +1,313 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<!doctype html>
+<html>
   <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <title>oserioCN Wechat Front-end API by PeacePan</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-dark.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
   </head>
   <body>
-    <section class="page-header">
-      <h1 class="project-name">oserioCN Wechat Front-end API</h1>
-      <h2 class="project-tagline">Front-end API for china oserio wechat project</h2>
-      <a href="https://github.com/PeacePan/oserioCN-wechat-front-end-api" class="btn">View on GitHub</a>
-      <a href="https://github.com/PeacePan/oserioCN-wechat-front-end-api/zipball/master" class="btn">Download .zip</a>
-      <a href="https://github.com/PeacePan/oserioCN-wechat-front-end-api/tarball/master" class="btn">Download .tar.gz</a>
-    </section>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/PeacePan/oserioCN-wechat-front-end-api">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/PeacePan/oserioCN-wechat-front-end-api/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/PeacePan/oserioCN-wechat-front-end-api/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
 
-    <section class="main-content">
-      <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+    <div class="wrapper">
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here <a href="https://guides.github.com/features/mastering-markdown/">using GitHub Flavored Markdown</a>, select a template crafted by a designer, and publish. After your page is generated, you can check out the new <code>gh-pages</code> branch locally. If you’re using GitHub Desktop, simply sync your repository and you’ll see the new branch.</p>
+      <section>
+        <div id="title">
+          <h1>oserioCN Wechat Front-end API</h1>
+          <p>Front-end API for china oserio wechat project</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/PeacePan">PeacePan</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a id="wechat-app-front-end-api-for-china-oserio-project" class="anchor" href="#wechat-app-front-end-api-for-china-oserio-project" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Wechat App Front-end API for china oserio project</h1>
+
+<h1></h1>
+
+<h1>
+<a id="version" class="anchor" href="#version" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Version</h1>
+
+<p>1.0.0</p>
+
+<h1>
+<a id="api" class="anchor" href="#api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>API</h1>
+
+<h2>
+<a id="request" class="anchor" href="#request" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>request</h2>
+
+<ul>
+<li><a href="#getJsConfigSign">getJsConfigSign</a></li>
+<li><a href="#getOAuthToken">getOAuthToken</a></li>
+<li><a href="#getUserInfo">getUserInfo</a></li>
+<li><a href="#setUserInfo">setUserInfo</a></li>
+<li><a href="#getBodyInfo">getBodyInfo</a></li>
+<li><a href="#getDeviceList">getDeviceList</a></li>
+<li><a href="#unbindDevice">unbindDevice</a></li>
+</ul>
+
+<h1></h1>
+
+<h2>
+<a id="getjsconfigsign" class="anchor" href="#getjsconfigsign" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>getJsConfigSign</h2>
+
+<p>前端網頁傳送網頁URL給後端伺服器，要求生成啟用JSSDK所需的簽名。</p>
 
 <h3>
-<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Designer Templates</h3>
+<a id="method" class="anchor" href="#method" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>method</h3>
 
-<p>We’ve crafted some handsome templates for you to use. Go ahead and click 'Continue to layouts' to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved.</p>
+<p><strong>POST</strong></p>
+
+<p>POST <code>/front-end-api/jssdk?action=getJsConfigSign</code></p>
+
+<h4>
+<a id="post-parameters" class="anchor" href="#post-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>POST parameters</h4>
+
+<pre><code>{
+    url: "http://host.domain.name/webpage"
+}
+</code></pre>
 
 <h3>
-<a id="creating-pages-manually" class="anchor" href="#creating-pages-manually" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating pages manually</h3>
+<a id="json-response" class="anchor" href="#json-response" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSON response</h3>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<pre><code>{
+    appId: "wxe55f5egd8bd2d645",
+    timestamp: "1458400688",
+    nonceStr: "1282991227",
+    signature: "e9e23a04136c5749063a4585a3150df58aec4bda"
+}
+</code></pre>
+
+<h1></h1>
+
+<h2>
+<a id="getoauthtoken" class="anchor" href="#getoauthtoken" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>getOAuthToken</h2>
+
+<p>向後台索取網頁授權的Access Token。</p>
 
 <h3>
-<a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<a id="method-1" class="anchor" href="#method-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>method</h3>
 
-<p>You can <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#mentioning-users-and-teams" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p><strong>POST</strong></p>
+
+<p>POST <code>/front-end-api/jssdk?action=getOAuthToken</code></p>
+
+<h4>
+<a id="post-parameters-1" class="anchor" href="#post-parameters-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>POST parameters</h4>
+
+<pre><code>{
+    code: "01167eda5f5f5d78eb252060f961c8fr",
+    state: "STATE"
+}
+</code></pre>
 
 <h3>
-<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
+<a id="json-response-1" class="anchor" href="#json-response-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSON response</h3>
 
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
+<pre><code>{
+    access_token: "OezXcEiiBSKSxW0eoylIeD2sWDPK_-ckMgbY4OkprydHFprJ8kJFpQdaG2Ly2lJfaUpQJZyQ3AsxE5U-r76eaPa13GhTtZLzB9QytT9BESdhkB_UiSbW2QL8AFa785bus_gJvsNc89DDXVkKkI-7XA"
+    expires_in: 7200
+    openid: "omBJDwkHA_mgH4qJmkFYThuksEj4"
+    refresh_token: "OezXcEiiBSKSxW0eoylIeD2sWDPK_-ckMgbY4OkprydHFprJ8kJFpQdaG2Ly2lJfbsc9jWHAirK0PYAkiaglew43vg88GyqZv10Otp1PUrdEtUsb-MWcyx6FiK8va9euVvGWZSNnMWNJ5WE6cxVJoQ"
+    scope: "snsapi_base"
+}
+</code></pre>
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.com/PeacePan/oserioCN-wechat-front-end-api">oserioCN Wechat Front-end API</a> is maintained by <a href="https://github.com/PeacePan">PeacePan</a>.</span>
+<h1></h1>
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
+<h2>
+<a id="getuserinfo" class="anchor" href="#getuserinfo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>getUserInfo</h2>
 
-    </section>
+<p>要求取得當前使用者的使用者資料，後端伺服器使用網頁授權後取得的Access Token提取使用者資料</p>
 
-  
+<h3>
+<a id="method-2" class="anchor" href="#method-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>method</h3>
+
+<p><strong>POST</strong></p>
+
+<p>POST <code>/front-end-api/user?action=getUserInfo</code></p>
+
+<h4>
+<a id="post-parameters-2" class="anchor" href="#post-parameters-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>POST parameters</h4>
+
+<pre><code>{
+    access_token: "OezXcEiiBSKSxW0eoylIeD2sWDPK_-ckMgbY4OkprydHFprJ8kJFpQdaG2Ly2lJfaUpQJZyQ3AsxE5U-r76eaPa13GhTtZLzB9QytT9BESdhkB_UiSbW2QL8AFa785bus_gJvsNc89DDXVkKkI-7XA",
+    openid: "omBJDwkHA_mgH4qJmkFYThuksEj4",
+    lang: "zh-TW"
+}
+</code></pre>
+
+<h3>
+<a id="json-response-2" class="anchor" href="#json-response-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSON response</h3>
+
+<pre><code>{
+    city: "",
+    country: "Taiwan",
+    headimgurl: "http://wx.qlogo.cn/mmopen/ajNVdqHZLLBo6NCxAg7dj0N3UtrMF5dtm4jG5d4kXEf13J3A9Tk528nD3Tgp7urXxPaV7QjaicH0WsdUgPUjh2Mc6aBpzELJTM00UA5b2pHo/0",
+    language: "zh_TW",
+    nickname: "潘銘和",
+    openid: "omBJDwkHA_mgH4qJmkFYThuksEj4",
+    privilege: [],
+    province: "Taichung City",
+    sex: 1
+}
+</code></pre>
+
+<h1></h1>
+
+<h2>
+<a id="setuserinfo" class="anchor" href="#setuserinfo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>setUserInfo</h2>
+
+<p>儲存使用者的使用者資訊至後端伺服器儲存(身高、目標體重等其他設定)</p>
+
+<h3>
+<a id="method-3" class="anchor" href="#method-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>method</h3>
+
+<p><strong>POST</strong></p>
+
+<p>POST <code>/front-end-api/user?action=setUserInfo</code></p>
+
+<h4>
+<a id="post-parameters-3" class="anchor" href="#post-parameters-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>POST parameters</h4>
+
+<pre><code>{
+    openid: "omBJDwkHA_mgH4qJmkFYThuksEj4",
+    nickname: "潘銘和",
+    sex: 1,
+    birthday: "1970-01-01"
+    height: 172.5,
+    goal_weight: "60.5"
+}
+</code></pre>
+
+<h3>
+<a id="json-response-3" class="anchor" href="#json-response-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSON response</h3>
+
+<pre><code>{}
+</code></pre>
+
+<h1></h1>
+
+<h2>
+<a id="getbodyinfo" class="anchor" href="#getbodyinfo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>getBodyInfo</h2>
+
+<p>取得使用者的所有身體資訊清單</p>
+
+<h3>
+<a id="method-4" class="anchor" href="#method-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>method</h3>
+
+<p><strong>POST</strong></p>
+
+<p>POST <code>/front-end-api/user?action=getBodyInfo</code></p>
+
+<h4>
+<a id="post-parameters-4" class="anchor" href="#post-parameters-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>POST parameters</h4>
+
+<pre><code>{
+    openid: "omBJDwkHA_mgH4qJmkFYThuksEj4"
+}
+</code></pre>
+
+<h3>
+<a id="json-response-4" class="anchor" href="#json-response-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSON response</h3>
+
+<pre><code>{
+    data: [{
+        date: "2016-01-01",
+        time: "12:03:45",
+        weight: 65.2,
+        bodyfat: 15.6,
+    }, {
+        date: "2016-01-02",
+        time: "11:12:36",
+        weight: 55.2,
+        bodyfat: 14.3
+    }]
+}
+</code></pre>
+
+<h1></h1>
+
+<h2>
+<a id="getdevicelist" class="anchor" href="#getdevicelist" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>getDeviceList</h2>
+
+<p>取得使用者已綁定的裝置清單</p>
+
+<h3>
+<a id="method-5" class="anchor" href="#method-5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>method</h3>
+
+<p><strong>POST</strong></p>
+
+<p>POST <code>/front-end-api/device?action=getDeviceList</code></p>
+
+<h4>
+<a id="post-parameters-5" class="anchor" href="#post-parameters-5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>POST parameters</h4>
+
+<pre><code>{
+    openid: "omBJDwkHA_mgH4qJmkFYThuksEj4"
+}
+</code></pre>
+
+<h3>
+<a id="json-response-5" class="anchor" href="#json-response-5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSON response</h3>
+
+<pre><code>{
+    待補
+}
+</code></pre>
+
+<h1></h1>
+
+<h2>
+<a id="unbinddevice" class="anchor" href="#unbinddevice" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>unbindDevice</h2>
+
+<p>使用者解除綁定的裝置</p>
+
+<h3>
+<a id="method-6" class="anchor" href="#method-6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>method</h3>
+
+<p><strong>DELETE</strong></p>
+
+<p>DELETE <code>/front-end-api/device?action=unbindDevice</code></p>
+
+<h4>
+<a id="post-parameters-6" class="anchor" href="#post-parameters-6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>POST parameters</h4>
+
+<pre><code>{
+    待補
+}
+</code></pre>
+
+<h3>
+<a id="json-response-6" class="anchor" href="#json-response-6" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>JSON response</h3>
+
+<pre><code>{
+    待補
+}
+</code></pre>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
   </body>
 </html>
