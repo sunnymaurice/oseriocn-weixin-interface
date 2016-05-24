@@ -65,11 +65,11 @@ export class ActionFrontEndAPI {
                 });
                 res.end();
             }, (error) => {
-                console.log(error);
+                console.error(error);
                 res.status(400).send();
             });
         }, (error) => {
-            console.log(error);
+            console.error(error);
             res.status(400).send();
         });
     }
@@ -82,12 +82,10 @@ export class ActionFrontEndAPI {
     public jsSign(req, res) {
         switch (req.query.action) {
             case 'getJsConfigSign':
-                console.log('\naction: getJsConfigSign');
-
                 this.wxapi.getJsConfigSign(req.body.url).then((sign) => {
                     this.responseJSON(res, sign);
                 }, (error) => {
-                    console.log(error);
+                    console.error(error);
                     res.status(400).send();
                 });
                 break;
@@ -105,7 +103,6 @@ export class ActionFrontEndAPI {
     public user(req, res) {
         switch (req.query.action) {
             case 'getUserInfo':
-                console.log('\naction: getUserInfo');
                 // request body example:
                 // { openid: "omBJDwkHA_mgH4qJmkFYThuksEj4" }
 
@@ -122,12 +119,11 @@ export class ActionFrontEndAPI {
                 this.wxapi.getUserInfo(req.body.openid, userLang).then((userInfo) => {
                     this.responseJSON(res, userInfo);
                 }, (error) => {
-                    console.log(error);
+                    console.error(error);
                     res.status(400).send();
                 });
                 break;
             case 'updateUserInfo':
-                console.log('\naction: updateUserInfo');
                 // request body example:
                 // {
                 //     openid: "omBJDwkHA_mgH4qJmkFYThuksEj4",
@@ -154,8 +150,6 @@ export class ActionFrontEndAPI {
      * @param {any} res remote response to client
      */
     public device(req, res) {
-        console.log(req.body);
-
         switch (req.query.action) {
             case 'getDeviceListByUser':
                 // this.mongodb.fetchUserDeviceList(req.body.openid).then((device_list) => {

@@ -38,7 +38,6 @@ var WeixinBridge = (function () {
         this.rtcfg = rtcfg;
         this.baseToken = null;
         this.jsapiTicket = null;
-        console.log('WeixinBridge constructed');
     }
     /**
      發送http request至遠端伺服器
@@ -50,7 +49,6 @@ var WeixinBridge = (function () {
         return new Promise(function (resolve, reject) {
             _this.request(options, function (error, response, body) {
                 if (!error && response.statusCode === 200) {
-                    console.log(body);
                     // 微信的回應會帶base_resp屬性
                     if (body && body.base_resp) {
                         body = body.base_resp;
@@ -60,13 +58,13 @@ var WeixinBridge = (function () {
                         resolve(body);
                     }
                     else {
-                        console.log('### Weixin Request Error ###\n');
+                        console.error('### Weixin Request Error ###\n');
                         reject(body);
                     }
                 }
                 else {
-                    console.log(error);
-                    console.log('### Send Request Error ###\n');
+                    console.error(error);
+                    console.error('### Send Request Error ###\n');
                     reject(error);
                 }
             });
@@ -79,7 +77,6 @@ var WeixinBridge = (function () {
      @param {string} redirect_uri 授權後重新導向的位址(需要進行URI編譯)
      */
     WeixinBridge.prototype.getOauthRedirect = function (scope, state, redirect_uri) {
-        console.log('WeixinBridge: getOauthRedirect');
         scope = scope ? scope : 'snsapi_userinfo';
         state = state ? state : '';
         redirect_uri = redirect_uri ? redirect_uri : encodeURIComponent(this.rtcfg.HOST_ADDRESS + this.rtcfg.WX_PREFIX + this.rtcfg.WX_OAUTH_REDIRECT);
@@ -97,7 +94,6 @@ var WeixinBridge = (function () {
      */
     WeixinBridge.prototype.getBaseAccessToken = function () {
         var _this = this;
-        console.log('WeixinBridge: getBaseAccessToken');
         return new Promise(function (resolve, reject) {
             // 向微信服務器要求access_token
             var getAccessToken = function () {
@@ -123,7 +119,6 @@ var WeixinBridge = (function () {
                     }
                     // 將access_token緩存至mongodb
                     _this.mongodb.updateBaseToken(_this.baseToken).then(function () {
-                        console.log('Refresh Weixin Base Access Token.');
                         resolve(_this.baseToken);
                     });
                 }, function (error) {
@@ -167,7 +162,6 @@ var WeixinBridge = (function () {
      */
     WeixinBridge.prototype.getJsapiTicket = function () {
         var _this = this;
-        console.log('WeixinBridge: getJsapiTicket');
         return new Promise(function (resolve, reject) {
             // 向微信服務器要求Jsapi Ticket
             var getTicket = function () {
@@ -192,7 +186,6 @@ var WeixinBridge = (function () {
                         }
                         // 更新jsapiTicket
                         _this.mongodb.updateJsapiTicket(_this.jsapiTicket).then(function () {
-                            console.log('Refresh Weixin Jsapi Ticket.');
                             resolve(_this.jsapiTicket);
                         }, function (error) {
                             reject(error);
@@ -244,7 +237,6 @@ var WeixinBridge = (function () {
      */
     WeixinBridge.prototype.getJsConfigSign = function (url) {
         var _this = this;
-        console.log('WeixinBridge: getJsConfigSign');
         // 提供數據不完整則返回空數據
         if (!url) {
             return new Promise(function (resolve, reject) { reject(); });
@@ -295,7 +287,6 @@ var WeixinBridge = (function () {
      */
     WeixinBridge.prototype.getOauthToken = function (code) {
         var _this = this;
-        console.log('WeixinBridge: getOauthToken');
         // 提供數據不完整則返回空數據
         if (!code) {
             return new Promise(function (resolve, reject) { reject('Get oauth access token need a code string.'); });
@@ -324,7 +315,6 @@ var WeixinBridge = (function () {
      */
     WeixinBridge.prototype.getUserInfo = function (openid, lang) {
         var _this = this;
-        console.log('WeixinBridge: getUserInfo');
         // 提供數據不完整則返回空數據
         if (!openid) {
             return new Promise(function (resolve, reject) { reject('invaild openid'); });
@@ -390,7 +380,6 @@ var WeixinBridge = (function () {
      */
     WeixinBridge.prototype.unbindUserDevice = function (openid, device_id) {
         var _this = this;
-        console.log('WeixinBridge: unbindUserDevice');
         // 提供數據不完整則返回空數據
         if (!openid || !device_id) {
             return new Promise(function (resolve, reject) { reject('invaild openid or device_id'); });
@@ -425,7 +414,6 @@ var WeixinBridge = (function () {
      */
     WeixinBridge.prototype.getBindDevice = function (openid) {
         var _this = this;
-        console.log('WeixinBridge: getBindDevice');
         // 提供數據不完整則返回空數據
         if (!openid) {
             return new Promise(function (resolve, reject) { reject('invaild openid'); });
@@ -458,7 +446,6 @@ var WeixinBridge = (function () {
      */
     WeixinBridge.prototype.sendMessageToUser = function (openid, msgtype, data) {
         var _this = this;
-        console.log('WeixinBridge: sendMessageToUser');
         return new Promise(function (resolve, reject) {
             _this.getBaseAccessToken().then(function (token) {
                 _this.sendRequest({
@@ -493,7 +480,6 @@ var WeixinBridge = (function () {
      */
     WeixinBridge.prototype.sendTemplateToUser = function (openid, template_id, url, data) {
         var _this = this;
-        console.log('WeixinBridge: sendTemplateToUser');
         return new Promise(function (resolve, reject) {
             _this.getBaseAccessToken().then(function (token) {
                 _this.sendRequest({

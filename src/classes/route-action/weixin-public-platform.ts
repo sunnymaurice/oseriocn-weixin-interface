@@ -117,8 +117,6 @@ export class ActionWeixinPublicPlatform {
     private weixinPublicEntryGET(req, res) {
         // 驗證微信簽名
         if (req.query && req.query.signature && this.wxapi.checkSignature(req.query)) {
-            console.log('weixin signature successful');
-
             // 簽名驗證成功
             if (req.query.echostr) {
                 // 如果帶有echostr，直接回應echostr(微信公眾平台驗證)
@@ -150,8 +148,6 @@ export class ActionWeixinPublicPlatform {
                     res.status(err.status).send();
                     return;
                 }
-
-                console.log(json);
 
                 let xml = json.xml;
                 let msgFrom = <MessageFrom>{
@@ -287,13 +283,13 @@ export class ActionWeixinPublicPlatform {
                                 this.event.emit('wxUser.deviceEvent.unbind', msgFrom);
                                 break;
                             default:
-                                console.log('unknown event: ' + msgFrom.event);
+                                console.error('unknown event: ' + msgFrom.event);
                                 break;
                         }
                         res.status(200).send(); // 回覆給微信伺服器代表收到
                         return;
                     default:
-                        console.log('unknown message: ' + msgFrom.msgType);
+                        console.error('unknown message: ' + msgFrom.msgType);
                         res.status(200).send();
                         return;
                 }
@@ -310,7 +306,6 @@ export class ActionWeixinPublicPlatform {
                 //         '<MsgType><![CDATA[' + 'text' + ']]></MsgType>' +
                 //         '<Content><![CDATA[' + '嗨，你好！' + ']]></Content>' + 
                 //     '</xml>';
-                // console.log(outputXml);
 
                 // // 回覆音樂訊息給用戶
                 // let outputXml =

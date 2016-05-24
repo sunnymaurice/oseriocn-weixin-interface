@@ -61,11 +61,11 @@ var ActionFrontEndAPI = (function () {
                 });
                 res.end();
             }, function (error) {
-                console.log(error);
+                console.error(error);
                 res.status(400).send();
             });
         }, function (error) {
-            console.log(error);
+            console.error(error);
             res.status(400).send();
         });
     };
@@ -78,11 +78,10 @@ var ActionFrontEndAPI = (function () {
         var _this = this;
         switch (req.query.action) {
             case 'getJsConfigSign':
-                console.log('\naction: getJsConfigSign');
                 this.wxapi.getJsConfigSign(req.body.url).then(function (sign) {
                     _this.responseJSON(res, sign);
                 }, function (error) {
-                    console.log(error);
+                    console.error(error);
                     res.status(400).send();
                 });
                 break;
@@ -100,7 +99,6 @@ var ActionFrontEndAPI = (function () {
         var _this = this;
         switch (req.query.action) {
             case 'getUserInfo':
-                console.log('\naction: getUserInfo');
                 // request body example:
                 // { openid: "omBJDwkHA_mgH4qJmkFYThuksEj4" }
                 // 根據使用者不同地區國家對應不同資訊；目前只支援zh_TW, en_US, zh_CN
@@ -117,12 +115,11 @@ var ActionFrontEndAPI = (function () {
                 this.wxapi.getUserInfo(req.body.openid, userLang).then(function (userInfo) {
                     _this.responseJSON(res, userInfo);
                 }, function (error) {
-                    console.log(error);
+                    console.error(error);
                     res.status(400).send();
                 });
                 break;
             case 'updateUserInfo':
-                console.log('\naction: updateUserInfo');
                 // request body example:
                 // {
                 //     openid: "omBJDwkHA_mgH4qJmkFYThuksEj4",
@@ -148,7 +145,6 @@ var ActionFrontEndAPI = (function () {
      */
     ActionFrontEndAPI.prototype.device = function (req, res) {
         var _this = this;
-        console.log(req.body);
         switch (req.query.action) {
             case 'getDeviceListByUser':
                 // this.mongodb.fetchUserDeviceList(req.body.openid).then((device_list) => {

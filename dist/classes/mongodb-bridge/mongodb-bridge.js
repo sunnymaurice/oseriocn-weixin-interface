@@ -9,7 +9,6 @@ var MongodbBridge = (function () {
         this.wxUserColl = this.db.collection(this.dbcfg.COLL_WEIXIN_USERS);
         this.baseTokenColl = this.db.collection(this.dbcfg.COLL_BASE_TOKEN);
         this.jsapiColl = this.db.collection(this.dbcfg.COLL_JSAPI_TICKET);
-        console.log('MongodbBridge constructed');
     }
     /**
      更新微信使用者的資料
@@ -17,7 +16,6 @@ var MongodbBridge = (function () {
      */
     MongodbBridge.prototype.updateWeixinUser = function (userInfo) {
         var _this = this;
-        console.log('MongodbBridge: updateWeixinUser');
         // 若沒有初始化Mongodb，則直接回調
         if (!userInfo.openid) {
             return new Promise(function (resolve, reject) { reject('Param error'); });
@@ -37,7 +35,6 @@ var MongodbBridge = (function () {
                 // 根據使用者openid更新資料庫
                 _this.wxUserColl.update({ openid: userInfo.openid }, { $set: userInfo }, { upsert: true }, function (error, result) {
                     _this.assert.equal(error, null); // 寫入資料庫失敗擲出錯誤，中斷Node
-                    console.log('Updated a document into the "' + _this.dbcfg.COLL_WEIXIN_USERS + '" collection.');
                     resolve(result);
                 });
             });
@@ -49,7 +46,6 @@ var MongodbBridge = (function () {
      */
     MongodbBridge.prototype.fetchWeixinUser = function (openid) {
         var _this = this;
-        console.log('MongodbBridge: fetchWeixinUser');
         if (!openid) {
             return new Promise(function (resolve, reject) { reject('Param error'); });
         }
@@ -68,7 +64,6 @@ var MongodbBridge = (function () {
      */
     MongodbBridge.prototype.updateBaseToken = function (baseTokenNew) {
         var _this = this;
-        console.log('MongodbBridge: updateBaseToken');
         if (!baseTokenNew) {
             return new Promise(function (resolve, reject) { reject('Param error'); });
         }
@@ -79,7 +74,6 @@ var MongodbBridge = (function () {
                         // 資料庫內尚未有Token的紀錄，進行新增
                         _this.baseTokenColl.insertOne(baseTokenNew, function (error, result) {
                             _this.assert.equal(error, null); // 寫入資料庫失敗執出錯誤，中斷Node
-                            console.log('Inserted a document into the "' + _this.dbcfg.COLL_BASE_TOKEN + '" collection.');
                             resolve(result);
                         });
                     }
@@ -87,7 +81,6 @@ var MongodbBridge = (function () {
                         // 更新資料庫
                         _this.baseTokenColl.update({ _id: doc._id }, { $set: baseTokenNew }, { upsert: true }, function (error, result) {
                             _this.assert.equal(error, null); // 寫入資料庫失敗執出錯誤，中斷Node
-                            console.log('Updated a document into the "' + _this.dbcfg.COLL_BASE_TOKEN + '" collection.');
                             resolve(result);
                         });
                     }
@@ -101,7 +94,6 @@ var MongodbBridge = (function () {
      */
     MongodbBridge.prototype.fetchBaseToken = function () {
         var _this = this;
-        console.log('MongodbBridge: fetchBaseToken');
         return new Promise(function (resolve) {
             _this.baseTokenColl.findOne({}, function (error, result) {
                 _this.assert.equal(null, error); // 連結資料庫失敗擲出錯誤，中斷Node
@@ -115,7 +107,6 @@ var MongodbBridge = (function () {
      */
     MongodbBridge.prototype.updateJsapiTicket = function (jsapiTicketNew) {
         var _this = this;
-        console.log('MongodbBridge: updateJsapiTicket');
         if (!jsapiTicketNew) {
             return new Promise(function (resolve, reject) { reject('Param error'); });
         }
@@ -126,7 +117,6 @@ var MongodbBridge = (function () {
                         // 資料庫內尚未有Token的紀錄，進行新增
                         _this.jsapiColl.insertOne(jsapiTicketNew, function (error, result) {
                             _this.assert.equal(error, null); // 寫入資料庫失敗執出錯誤，中斷Node
-                            console.log('Inserted a document into the "' + _this.dbcfg.COLL_JSAPI_TICKET + '" collection.');
                             resolve(result);
                         });
                     }
@@ -134,7 +124,6 @@ var MongodbBridge = (function () {
                         // 更新資料庫
                         _this.jsapiColl.update({ _id: doc._id }, { $set: jsapiTicketNew }, { upsert: true }, function (error, result) {
                             _this.assert.equal(error, null); // 寫入資料庫失敗執出錯誤，中斷Node
-                            console.log('Updated a document into the "' + _this.dbcfg.COLL_JSAPI_TICKET + '" collection.');
                             resolve(result);
                         });
                     }
@@ -148,7 +137,6 @@ var MongodbBridge = (function () {
      */
     MongodbBridge.prototype.fetchJsapiTicket = function () {
         var _this = this;
-        console.log('MongodbBridge: fetchJsapiTicket');
         return new Promise(function (resolve) {
             _this.jsapiColl.findOne({}, function (error, result) {
                 _this.assert.equal(null, error); // 連結資料庫失敗擲出錯誤，中斷Node
@@ -164,7 +152,6 @@ var MongodbBridge = (function () {
      */
     MongodbBridge.prototype.addUserBindDevice = function (openid, device_id, product_id) {
         var _this = this;
-        console.log('MongodbBridge: addUserBindDevice');
         // 若沒有初始化Mongodb，則直接回調
         if (!openid || !device_id) {
             return new Promise(function (resolve, reject) { reject('Param error'); });
@@ -186,7 +173,6 @@ var MongodbBridge = (function () {
                             var collect = _this.db.collection(_this.dbcfg.COLL_WEIXIN_DEVICES);
                             collect.update({ device_id: deviceAddDoc.device_id }, { $set: deviceAddDoc }, { upsert: true }, function (error, result) {
                                 _this.assert.equal(error, null); // 寫入資料庫失敗擲出錯誤，中斷Node
-                                console.log('Updated a document into the "' + _this.dbcfg.COLL_WEIXIN_DEVICES + '" collection.');
                                 resolve(result);
                             });
                         });
@@ -216,7 +202,6 @@ var MongodbBridge = (function () {
     };
     MongodbBridge.prototype.removeUserBindDevice = function (openid, device_id) {
         var _this = this;
-        console.log('MongodbBridge: removeUserBindDevice');
         // 若沒有初始化Mongodb，則直接回調
         if (!openid || !device_id) {
             return new Promise(function (resolve, reject) { reject('Param error'); });
@@ -245,7 +230,6 @@ var MongodbBridge = (function () {
                                 var collect = _this.db.collection(_this.dbcfg.COLL_WEIXIN_DEVICES);
                                 collect.update({ device_id: deviceAddDoc.device_id }, { $set: deviceAddDoc }, { upsert: true }, function (error, result) {
                                     _this.assert.equal(error, null); // 寫入資料庫失敗擲出錯誤，中斷Node
-                                    console.log('Updated a document into the "' + _this.dbcfg.COLL_WEIXIN_DEVICES + '" collection.');
                                     resolve(result);
                                 });
                             }
@@ -274,7 +258,6 @@ var MongodbBridge = (function () {
     };
     MongodbBridge.prototype.fetchUserDeviceList = function (openid) {
         var _this = this;
-        console.log('MongodbBridge: fetchUserDeviceList');
         // 若沒有初始化Mongodb，則直接回調
         if (!openid) {
             return new Promise(function (resolve, reject) { reject('Need initial mongodb or param error'); });
@@ -320,7 +303,6 @@ var MongodbBridge = (function () {
      */
     MongodbBridge.prototype.updateDeviceInfo = function (deviceInfo) {
         var _this = this;
-        console.log('MongodbBridge: updateDeviceInfo');
         if (!deviceInfo.device_id) {
             return new Promise(function (resolve, reject) { reject('Need initial mongodb or param error'); });
         }
@@ -330,7 +312,6 @@ var MongodbBridge = (function () {
                 // 更新資料庫
                 collect.update({ device_id: deviceInfo.device_id }, { $set: deviceInfo }, { upsert: true }, function (error, result) {
                     _this.assert.equal(error, null); // 寫入資料庫失敗執出錯誤，中斷Node
-                    console.log('Updated a document into the "' + _this.dbcfg.COLL_WEIXIN_DEVICES + '" collection.');
                     resolve(result);
                 });
             });
@@ -342,7 +323,6 @@ var MongodbBridge = (function () {
      */
     MongodbBridge.prototype.fetchDeviceInfo = function (device_id) {
         var _this = this;
-        console.log('MongodbBridge: fetchDeviceInfo');
         if (!device_id) {
             return new Promise(function (resolve, reject) { reject('Need initial mongodb or param error'); });
         }

@@ -32,8 +32,6 @@ export class WeixinBridge {
 
         this.baseToken = null;
         this.jsapiTicket = null;
-        
-        console.log('WeixinBridge constructed');
     }
 
     /**
@@ -45,7 +43,6 @@ export class WeixinBridge {
         return new Promise<any>((resolve, reject) => {
             this.request(options, (error, response, body) => {
                 if (!error && response.statusCode === 200) {
-                    console.log(body);
 
                     // 微信的回應會帶base_resp屬性
                     if (body && body.base_resp) { body = body.base_resp; }
@@ -54,12 +51,12 @@ export class WeixinBridge {
                     if (body.errcode === 0) {
                         resolve(body);
                     } else {
-                        console.log('### Weixin Request Error ###\n');
+                        console.error('### Weixin Request Error ###\n');
                         reject(body);
                     }
                 } else {
-                    console.log(error);
-                    console.log('### Send Request Error ###\n');
+                    console.error(error);
+                    console.error('### Send Request Error ###\n');
                     reject(error);
                 }
             });
@@ -102,7 +99,6 @@ export class WeixinBridge {
      @param {string} redirect_uri 授權後重新導向的位址(需要進行URI編譯)
      */
     public getOauthRedirect(scope, state, redirect_uri) {
-        console.log('WeixinBridge: getOauthRedirect');
         scope = scope ? scope : 'snsapi_userinfo';
         state = state ? state : '';
         redirect_uri = redirect_uri ? redirect_uri : encodeURIComponent(this.rtcfg.HOST_ADDRESS + this.rtcfg.WX_PREFIX + this.rtcfg.WX_OAUTH_REDIRECT);
@@ -121,7 +117,6 @@ export class WeixinBridge {
      @return {Promise} 非同步工作的承諾；取得基礎接口的AccessToken後回覆json結果
      */
     public getBaseAccessToken() {
-        console.log('WeixinBridge: getBaseAccessToken');
         return new Promise<any>((resolve, reject) => {
 
             // 向微信服務器要求access_token
@@ -148,7 +143,6 @@ export class WeixinBridge {
 
                     // 將access_token緩存至mongodb
                     this.mongodb.updateBaseToken(this.baseToken).then(() => {
-                        console.log('Refresh Weixin Base Access Token.');
                         resolve(this.baseToken);
                     });
                 }, (error) => {
@@ -190,7 +184,6 @@ export class WeixinBridge {
      取得微信生成簽名必須的Jsapi Ticket
      */
     private getJsapiTicket() {
-        console.log('WeixinBridge: getJsapiTicket');
         return new Promise<any>((resolve, reject) => {
 
             // 向微信服務器要求Jsapi Ticket
@@ -216,7 +209,6 @@ export class WeixinBridge {
 
                         // 更新jsapiTicket
                         this.mongodb.updateJsapiTicket(this.jsapiTicket).then(() => {
-                            console.log('Refresh Weixin Jsapi Ticket.');
                             resolve(this.jsapiTicket);
                         }, (error) => {
                             reject(error);
@@ -265,8 +257,6 @@ export class WeixinBridge {
      @return {Promise} 非同步工作的承諾；計算出簽名後回覆json結果
      */
     public getJsConfigSign(url) {
-        console.log('WeixinBridge: getJsConfigSign');
-
         // 提供數據不完整則返回空數據
         if (!url) {
             return new Promise((resolve, reject) => { reject(); });
@@ -317,7 +307,6 @@ export class WeixinBridge {
      @return {Promise} 非同步工作的承諾；取得Access Token後，攜帶json回覆
      */
     public getOauthToken(code) {
-        console.log('WeixinBridge: getOauthToken');
         // 提供數據不完整則返回空數據
         if (!code) {
             return new Promise((resolve, reject) => { reject('Get oauth access token need a code string.'); });
@@ -345,8 +334,6 @@ export class WeixinBridge {
      @return {Promise} 非同步工作的承諾；取得使用者基本資訊後回覆json結果
      */
     public getUserInfo(openid, lang) {
-        console.log('WeixinBridge: getUserInfo');
-
         // 提供數據不完整則返回空數據
         if (!openid) {
             return new Promise<any>((resolve, reject) => { reject('invaild openid'); });
@@ -411,8 +398,6 @@ export class WeixinBridge {
      @return {Promise} 非同步工作的承諾；取得微信解除綁定後，回覆微信json結果
      */
     public unbindUserDevice(openid, device_id) {
-        console.log('WeixinBridge: unbindUserDevice');
-
         // 提供數據不完整則返回空數據
         if (!openid || !device_id) {
             return new Promise<any>((resolve, reject) => { reject('invaild openid or device_id'); });
@@ -446,8 +431,6 @@ export class WeixinBridge {
      @return {Promise} 非同步工作的承諾；取得清單後，回覆微信json結果
      */
     public getBindDevice(openid) {
-        console.log('WeixinBridge: getBindDevice');
-
         // 提供數據不完整則返回空數據
         if (!openid) {
             return new Promise<any>((resolve, reject) => { reject('invaild openid'); });
@@ -478,8 +461,6 @@ export class WeixinBridge {
      發送客服訊息至用戶
      */
     public sendMessageToUser(openid, msgtype, data) {
-        console.log('WeixinBridge: sendMessageToUser');
-
         return new Promise<any>((resolve, reject) => {
             this.getBaseAccessToken().then((token) => {
                 this.sendRequest({
@@ -510,8 +491,6 @@ export class WeixinBridge {
      發送模板訊息至用戶
      */
     public sendTemplateToUser(openid, template_id, url, data) {
-        console.log('WeixinBridge: sendTemplateToUser');
-
         return new Promise<any>((resolve, reject) => {
             this.getBaseAccessToken().then((token) => {
                 this.sendRequest({

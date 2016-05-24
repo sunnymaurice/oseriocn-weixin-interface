@@ -17,8 +17,6 @@ export class MongodbBridge {
         this.wxUserColl = this.db.collection(this.dbcfg.COLL_WEIXIN_USERS);
         this.baseTokenColl = this.db.collection(this.dbcfg.COLL_BASE_TOKEN);
         this.jsapiColl = this.db.collection(this.dbcfg.COLL_JSAPI_TICKET);
-
-        console.log('MongodbBridge constructed');
     }
 
     /**
@@ -26,8 +24,6 @@ export class MongodbBridge {
      @param {any} userInfo 使用者資訊的物件(一定須包含openid項目)
      */
     public updateWeixinUser(userInfo) {
-        console.log('MongodbBridge: updateWeixinUser');
-
         // 若沒有初始化Mongodb，則直接回調
         if (!userInfo.openid) {
             return new Promise((resolve, reject) => { reject('Param error'); });
@@ -47,7 +43,6 @@ export class MongodbBridge {
                 // 根據使用者openid更新資料庫
                 this.wxUserColl.update({ openid: userInfo.openid }, { $set: userInfo }, { upsert: true }, (error, result) => {
                     this.assert.equal(error, null); // 寫入資料庫失敗擲出錯誤，中斷Node
-                    console.log('Updated a document into the "' + this.dbcfg.COLL_WEIXIN_USERS + '" collection.');
                     resolve(result);
                 });
             });
@@ -59,8 +54,6 @@ export class MongodbBridge {
      @return {Promise} 非同步工作的承諾；成功取得使用者資訊後，攜帶DB結果回覆
      */
     public fetchWeixinUser(openid) {
-        console.log('MongodbBridge: fetchWeixinUser');
-
         if (!openid) {
             return new Promise<any>((resolve, reject) => { reject('Param error'); });
         } else {
@@ -78,8 +71,6 @@ export class MongodbBridge {
      @return {Promise} 非同步工作的承諾；成功更新基礎接口Token後，攜帶DB結果回覆
      */
     public updateBaseToken(baseTokenNew) {
-        console.log('MongodbBridge: updateBaseToken');
-
         if (!baseTokenNew) {
             return new Promise<any>((resolve, reject) => { reject('Param error'); });
         } else {
@@ -89,14 +80,12 @@ export class MongodbBridge {
                         // 資料庫內尚未有Token的紀錄，進行新增
                         this.baseTokenColl.insertOne(baseTokenNew, (error, result) => {
                             this.assert.equal(error, null); // 寫入資料庫失敗執出錯誤，中斷Node
-                            console.log('Inserted a document into the "' + this.dbcfg.COLL_BASE_TOKEN + '" collection.');
                             resolve(result);
                         });
                     } else {
                         // 更新資料庫
                         this.baseTokenColl.update({ _id: doc._id }, { $set: baseTokenNew }, { upsert: true }, (error, result) => {
                             this.assert.equal(error, null); // 寫入資料庫失敗執出錯誤，中斷Node
-                            console.log('Updated a document into the "' + this.dbcfg.COLL_BASE_TOKEN + '" collection.');
                             resolve(result);
                         });
                     }
@@ -110,8 +99,6 @@ export class MongodbBridge {
      @return {Promise} 非同步工作的承諾；成功取出基礎接口的Access Token後，攜帶DB結果回覆
      */
     public fetchBaseToken() {
-        console.log('MongodbBridge: fetchBaseToken');
-
         return new Promise((resolve) => {
             this.baseTokenColl.findOne({}, (error, result) => {
                 this.assert.equal(null, error); // 連結資料庫失敗擲出錯誤，中斷Node
@@ -125,8 +112,6 @@ export class MongodbBridge {
      @return {Promise} 非同步工作的承諾；成功更新jsapi所需的Ticket後，攜帶DB結果回覆
      */
     public updateJsapiTicket(jsapiTicketNew) {
-        console.log('MongodbBridge: updateJsapiTicket');
-
         if (!jsapiTicketNew) {
             return new Promise<any>((resolve, reject) => { reject('Param error'); });
         } else {
@@ -136,14 +121,12 @@ export class MongodbBridge {
                         // 資料庫內尚未有Token的紀錄，進行新增
                         this.jsapiColl.insertOne(jsapiTicketNew, (error, result) => {
                             this.assert.equal(error, null); // 寫入資料庫失敗執出錯誤，中斷Node
-                            console.log('Inserted a document into the "' + this.dbcfg.COLL_JSAPI_TICKET + '" collection.');
                             resolve(result);
                         });
                     } else {
                         // 更新資料庫
                         this.jsapiColl.update({ _id: doc._id }, { $set: jsapiTicketNew }, { upsert: true }, (error, result) => {
                             this.assert.equal(error, null); // 寫入資料庫失敗執出錯誤，中斷Node
-                            console.log('Updated a document into the "' + this.dbcfg.COLL_JSAPI_TICKET + '" collection.');
                             resolve(result);
                         });
                     }
@@ -157,8 +140,6 @@ export class MongodbBridge {
      @return {Promise} 非同步工作的承諾；成功取出微信JSSDK生成簽名用的JSAPI Ticket後，攜帶結果回覆
      */
     public fetchJsapiTicket() {
-        console.log('MongodbBridge: fetchJsapiTicket');
-
         return new Promise((resolve) => {
             this.jsapiColl.findOne({}, (error, result) => {
                 this.assert.equal(null, error); // 連結資料庫失敗擲出錯誤，中斷Node
@@ -174,8 +155,6 @@ export class MongodbBridge {
      @param {string} product_id 裝置的產品型號
      */
     public addUserBindDevice(openid, device_id, product_id) {
-        console.log('MongodbBridge: addUserBindDevice');
-
         // 若沒有初始化Mongodb，則直接回調
         if (!openid || !device_id) {
             return new Promise<any>((resolve, reject) => { reject('Param error'); });
@@ -198,7 +177,6 @@ export class MongodbBridge {
                             let collect = this.db.collection(this.dbcfg.COLL_WEIXIN_DEVICES);
                             collect.update({ device_id: deviceAddDoc.device_id }, { $set: deviceAddDoc }, { upsert: true }, (error, result) => {
                                 this.assert.equal(error, null); // 寫入資料庫失敗擲出錯誤，中斷Node
-                                console.log('Updated a document into the "' + this.dbcfg.COLL_WEIXIN_DEVICES + '" collection.');
                                 resolve(result);
                             });
                         });
@@ -225,8 +203,6 @@ export class MongodbBridge {
     }
 
     public removeUserBindDevice(openid, device_id) {
-        console.log('MongodbBridge: removeUserBindDevice');
-
         // 若沒有初始化Mongodb，則直接回調
         if (!openid || !device_id) {
             return new Promise<any>((resolve, reject) => { reject('Param error'); });
@@ -258,7 +234,6 @@ export class MongodbBridge {
                                 let collect = this.db.collection(this.dbcfg.COLL_WEIXIN_DEVICES);
                                 collect.update({ device_id: deviceAddDoc.device_id }, { $set: deviceAddDoc }, { upsert: true }, (error, result) => {
                                     this.assert.equal(error, null); // 寫入資料庫失敗擲出錯誤，中斷Node
-                                    console.log('Updated a document into the "' + this.dbcfg.COLL_WEIXIN_DEVICES + '" collection.');
                                     resolve(result);
                                 });
                             } else {
@@ -286,8 +261,6 @@ export class MongodbBridge {
     }
 
     public fetchUserDeviceList(openid) {
-        console.log('MongodbBridge: fetchUserDeviceList');
-
         // 若沒有初始化Mongodb，則直接回調
         if (!openid) {
             return new Promise<any>((resolve, reject) => { reject('Need initial mongodb or param error'); });
@@ -333,7 +306,6 @@ export class MongodbBridge {
      @return {Promise} 非同步工作的承諾；成功取得使用者資訊後，攜帶結果回覆
      */
     public updateDeviceInfo(deviceInfo) {
-        console.log('MongodbBridge: updateDeviceInfo');
         if (!deviceInfo.device_id) {
             return new Promise<any>((resolve, reject) => { reject('Need initial mongodb or param error'); });
         } else {
@@ -343,7 +315,6 @@ export class MongodbBridge {
                 // 更新資料庫
                 collect.update({ device_id: deviceInfo.device_id }, { $set: deviceInfo }, { upsert: true }, (error, result) => {
                     this.assert.equal(error, null); // 寫入資料庫失敗執出錯誤，中斷Node
-                    console.log('Updated a document into the "' + this.dbcfg.COLL_WEIXIN_DEVICES + '" collection.');
                     resolve(result);
                 });
             })
@@ -355,7 +326,6 @@ export class MongodbBridge {
      @return {Promise} 非同步工作的承諾；成功取得使用者資訊後，攜帶結果回覆
      */
     public fetchDeviceInfo(device_id) {
-        console.log('MongodbBridge: fetchDeviceInfo');
         if (!device_id) {
             return new Promise<any>((resolve, reject) => { reject('Need initial mongodb or param error'); });
         } else {
