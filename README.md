@@ -8,19 +8,19 @@ Make sure you have
 
 - [MongoDB](http://www.mongodb.org/)
 
-## Running
-
-```
-git clone http://github.com/PeacePan/oseriocn-weixin-interface.git
-cd oseriocn-weixin-interface
-npm install
-```
 
 ## Setup for development
 
 ```
 sudo npm install -g typescript
-npm install gulp gulp-typescript tsd --save-dev
+npm install
 tsd install
 gulp build
+```
+
+## Install locally for NodeJS
+
+```
+git clone http://github.com/PeacePan/oseriocn-weixin-interface.git
+npm install path/to/oseriocn-weixin-interface
 ```
