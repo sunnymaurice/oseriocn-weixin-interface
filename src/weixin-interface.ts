@@ -198,6 +198,13 @@ class WeixinInterface {
     }
 
     /**
+     * 發送模板消息至用戶微信App
+     */
+    public sendTemplateToUser(openid, template_id, data) {
+        return this.weixinBridge.sendTemplateToUser(openid, template_id, this.rtcfg.HOST_ADDRESS + this.rtcfg.WX_PREFIX + this.rtcfg.WX_WEBPAGE, data);
+    }
+
+    /**
      * 發送量測資料模板消息至用戶
      */
     public sendMesurementToUser(openid, param) {
