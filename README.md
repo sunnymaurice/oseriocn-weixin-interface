@@ -1,4 +1,4 @@
-# oseriocn-weixin-server
+# oseriocn-weixin-interface
 
 Make sure you have
 
@@ -11,10 +11,9 @@ Make sure you have
 ## Running
 
 ```
-git clone http://github.com/PeacePan/oseriocn-weixin-server.git
-cd oseriocn-weixin-server
+git clone http://github.com/PeacePan/oseriocn-weixin-interface.git
+cd oseriocn-weixin-interface
 npm install
-sudo npm start
 ```
 
 ## Setup for development
@@ -23,7 +22,5 @@ sudo npm start
 sudo npm install -g typescript
 npm install gulp gulp-typescript tsd --save-dev
 tsd install
-vi ./typings/tsd.d.ts
-insert "/// <reference path="custom/custom.d.ts" />"
 gulp build
 ```
