@@ -1,0 +1,12 @@
+{
+    "DB_HOST":              "localhost:41262/",
+    "DB_USER":              "oseriocn",
+    "DB_PWD":               "Oserio2016",
+
+    "DB_NAME_WEIXIN":       "weixin_scale",
+
+    "COLL_BASE_TOKEN":      "weixin_base_token",
+    "COLL_JSAPI_TICKET":    "weixin_jsapi_ticket",
+    "COLL_WEIXIN_USERS":    "weixin_users",
+    "COLL_WEIXIN_DEVICES":  "weixin_devices"
+}

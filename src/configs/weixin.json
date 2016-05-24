@@ -1,0 +1,31 @@
+{
+    "WX_APPID":                 "wxe5ec73ebc46d090e",
+    "WX_APPSECRET":             "de4ca4b0cd836052c8a5cc799e8691b1",
+    "WX_TOKEN":                 "OserioCNweixin",
+
+    "API_URL_PREFIX":           "https://api.weixin.qq.com",
+    "OAUTH_URL_PREFIX":         "https://open.weixin.qq.com/connect/oauth2",
+
+    "CGI_BIN_URL":              "/cgi-bin",
+
+    "BASE_TOKEN_URL":           "/token?",
+
+    "USER_INFO_URL":            "/user/info?",
+
+    "JSAPI_TICKET_URL":         "/ticket/getticket?",
+    "MESSAGE_CUSTOM_SEND":      "/message/custom/send?",
+    "MESSAGE_TEMPLATE_SEND":    "/message/template/send?",
+
+    "DEVICE_URL_PREFIX":        "/device",
+
+    "FORCE_BIND_URL":           "/compel_bind?",
+    "FORCE_UNBIND_URL":         "/compel_unbind?",
+    "GET_BIND_DEVICE_URL":      "/get_bind_device?",
+
+    "OAUTH_TOKEN_URL":          "/sns/oauth2/access_token?",
+    "OAUTH_REFRESH_URL":        "/sns/oauth2/refresh_token?",
+    "OAUTH_USERINFO_URL":       "/sns/userinfo?",
+    "OAUTH_AUTH_URL":           "/sns/auth?",
+
+    "OAUTH_AUTHORIZE_URL":      "/authorize?"
+}

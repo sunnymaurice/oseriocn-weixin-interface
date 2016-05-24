@@ -1,0 +1,17 @@
+{
+    "HOST_ADDRESS":         "http://ec2-54-169-12-232.ap-southeast-1.compute.amazonaws.com",
+
+    "STATIC_HTML":          "/public",
+
+    "WX_PREFIX":            "/wechat",
+    "WX_PUBLIC_ENTRY":      "/public-entry",
+    "WX_WEBPAGE":           "/webpage",
+
+    "WX_OAUTH":           	"/oauth",
+    "WX_OAUTH_REDIRECT":   	"/oauth-redirect",
+
+    "FRONT_END_API":        "/front-end-api",
+    "F_JS_SDK":             "/jssdk",
+    "F_USER":               "/user",
+    "F_DEVICE":             "/device"
+}
